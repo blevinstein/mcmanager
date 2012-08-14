@@ -1,17 +1,19 @@
 %head
-    %title Minecraft Server Manager
-    = stylesheet 'css/reset.css', 'css/template.css'
-    = yield_content :styles
+  %title Minecraft Server Manager
+  = stylesheet 'css/bootstrap.css', 'css/bootstrap-responsive.css'
+  = stylesheet 'css/template.css'
+  = yield_content :head
 %body
-    .header
-        .logo
-            %img{:src=>'images/minecraft.png'}
-        .title
-            %h1 Minecraft Server Manager
+  .container
+    .header.row
+      .logo.span3
+        %img{:src=>'img/minecraft.png'}
+      .title.span9
+        %h1 Minecraft Server Manager
     .body
-        = yield
-    .footer
-        .copyright
-            Brian Levinstein &copy; #{Time.now.strftime('%Y')}
-        .disclaimer
-            (Minecraft&trade; is property of Mojang, Inc.)
+      = yield
+    .footer.row
+      .copyright.span4.offset4
+        Brian Levinstein &copy; #{Time.now.strftime('%Y')}
+      .disclaimer.span4.offset4
+        (Minecraft&trade; is property of Mojang, Inc.)

@@ -1,6 +1,5 @@
-- content_for :styles do
-    = stylesheet 'css/index.css'
-#login
+.login.row
     %form{:action=>'/login',:method=>'post'}
-        %input{:type=>'text',:name=>'password'}
-        %input{:type=>'submit',:value=>'Authenticate'}
+        %label.span2 Password:
+        %input.span3{:type=>'text',:name=>'password'}
+        %input.span2.btn-success{:type=>'submit',:value=>'Authenticate'}

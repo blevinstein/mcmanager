@@ -3,24 +3,24 @@ class MinecraftServer
   attr_accessor :id
   attr_accessor :status
   def initialize(path='server')
-    @status = {:state => 'STOPPED'}
+    @status = {:state => 'Stopped'}
     @path = File.join(Dir.pwd,path)
   end
   def start(version)
-    if @status[:state] != 'RUNNING'
+    if @status[:state] != 'Running'
       Dir.chdir(@path) do
         jar = "jar/#{version}.jar"
         @pid = IO.popen("java -Xmx1024M -Xms1024M -jar #{jar} nogui").pid
       end
-      @status[:state] = 'RUNNING'
+      @status[:state] = 'Running'
       @status[:version] = version
     end
   end
   def stop
-    if @status[:state] == 'RUNNING'
+    if @status[:state] == 'Running'
       Process.kill("TERM",@pid)
       Process.wait(@pid)
-      @status[:state] = 'STOPPED'
+      @status[:state] = 'Stopped'
     end
   end
   def backup
@@ -79,7 +79,7 @@ class MinecraftServer
   end
   def versions
     Dir.chdir(@path) do
-      `ls jar/*.jar`.split.map {|f| File.basename(f)[0...-4]}
+      `ls jar/*.jar`.split.map {|f| File.basename(f).gsub(/\.jar$/,'')}
     end
   end
 end

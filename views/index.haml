@@ -1,38 +1,36 @@
-- content_for :styles do
-    = stylesheet 'css/index.css'
-
-%form{:method=>'post',:action=>'server'}
-    %label
-        Status:
-        - if server then
-            = server.status[:state]
-            - if server.status[:version]
-                (#{server.status[:version]})
-        - else 'Unavailable.'
-    %select{:name=>'version'}
-        - server.versions.each do |version|
-            %option{:value=>version}
-                = version
-    %input{:type=>'submit',:value=>'Start',:name=>'start'}
-    %input{:type=>'submit',:value=>'Stop',:name=>'stop'}
+%form.row{:method=>'post',:action=>'server'}
+  %label.span3
+    Status:
+    - if server then
+      = server.status[:state]
+      - if server.status[:version]
+        (#{server.status[:version]})
+    - else 'Unavailable'
+  %select.span3{:name=>'version'}
+    - server.versions.each do |version|
+      %option{:value=>version}
+        = version
+  %input.span2.btn-success{:type=>'submit',:value=>'Start',:name=>'start'}
+  %input.span2.btn-danger{:type=>'submit',:value=>'Stop',:name=>'stop'}
 %form{:method=>'post',:action=>'backup'}
-    %label
-        Backups:
-    %input{:type=>'submit',:value=>'Backup',:name=>'backup'}
-    %select{:name=>'file'}
-        - server.backups.each do |file|
-            %option{:value=>file}
-                = file
-    %input{:type=>'submit',:value=>'Restore',:name=>'restore'}
-    %input{:type=>'submit',:value=>'Delete',:name=>'delete'}
-%form{:method=>'post',:action=>'op'}
-    %label
-        Ops:
-    %select{:name=>'player',}
-        - server.players.each do |player|
-            %option{:value=>player}
-                - if server.ops.include? player
-                    *
-                = player
-    %input{:type=>'submit',:value=>'Op',:name=>'op'}
-    %input{:type=>'submit',:value=>'DeOp',:name=>'deop'}
+  .row
+    %label.span3
+      Backups:
+    %select.span3{:name=>'file'}
+      - server.backups.each do |file|
+        %option{:value=>file}
+          = file
+    %input.span2.btn-success{:type=>'submit',:value=>'Backup',:name=>'backup'}
+    %input.span2.btn-warning{:type=>'submit',:value=>'Restore',:name=>'restore'}
+    %input.span2.btn-danger{:type=>'submit',:value=>'Delete',:name=>'delete'}
+%form.row{:method=>'post',:action=>'op'}
+  %label.span3
+    Ops:
+  %select.span3{:name=>'player',}
+    - server.players.each do |player|
+      %option{:value=>player}
+        - if server.ops.include? player
+          *
+        = player
+  %input.span2.btn-success{:type=>'submit',:value=>'Op',:name=>'op'}
+  %input.span2.btn-danger{:type=>'submit',:value=>'DeOp',:name=>'deop'}
