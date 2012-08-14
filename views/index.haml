@@ -1,0 +1,38 @@
+- content_for :styles do
+    = stylesheet 'css/index.css'
+
+%form{:method=>'post',:action=>'server'}
+    %label
+        Status:
+        - if server then
+            = server.status[:state]
+            - if server.status[:version]
+                (#{server.status[:version]})
+        - else 'Unavailable.'
+    %select{:name=>'version'}
+        - server.versions.each do |version|
+            %option{:value=>version}
+                = version
+    %input{:type=>'submit',:value=>'Start',:name=>'start'}
+    %input{:type=>'submit',:value=>'Stop',:name=>'stop'}
+%form{:method=>'post',:action=>'backup'}
+    %label
+        Backups:
+    %input{:type=>'submit',:value=>'Backup',:name=>'backup'}
+    %select{:name=>'file'}
+        - server.backups.each do |file|
+            %option{:value=>file}
+                = file
+    %input{:type=>'submit',:value=>'Restore',:name=>'restore'}
+    %input{:type=>'submit',:value=>'Delete',:name=>'delete'}
+%form{:method=>'post',:action=>'op'}
+    %label
+        Ops:
+    %select{:name=>'player',}
+        - server.players.each do |player|
+            %option{:value=>player}
+                - if server.ops.include? player
+                    *
+                = player
+    %input{:type=>'submit',:value=>'Op',:name=>'op'}
+    %input{:type=>'submit',:value=>'DeOp',:name=>'deop'}

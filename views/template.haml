@@ -1,0 +1,17 @@
+%head
+    %title Minecraft Server Manager
+    = stylesheet 'css/reset.css', 'css/template.css'
+    = yield_content :styles
+%body
+    .header
+        .logo
+            %img{:src=>'images/minecraft.png'}
+        .title
+            %h1 Minecraft Server Manager
+    .body
+        = yield
+    .footer
+        .copyright
+            Brian Levinstein &copy; #{Time.now.strftime('%Y')}
+        .disclaimer
+            (Minecraft&trade; is property of Mojang, Inc.)

@@ -1,0 +1,15 @@
+form {
+    margin: 20px;
+    border: outset 3px;
+    padding: 10px 20px;
+    background-color: lightGray;
+}
+
+form input[type=submit], form select {
+    width: 120px;
+}
+
+form label {
+    display: inline-block;
+    width: 200px;
+}

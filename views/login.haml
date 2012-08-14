@@ -1,0 +1,6 @@
+- content_for :styles do
+    = stylesheet 'css/index.css'
+#login
+    %form{:action=>'/login',:method=>'post'}
+        %input{:type=>'text',:name=>'password'}
+        %input{:type=>'submit',:value=>'Authenticate'}
