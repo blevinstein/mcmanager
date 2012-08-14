@@ -1,0 +1,3 @@
+- actual users & authentication
+- ability to upload/download backup archives
+- send certain errors to flash box
