@@ -7,6 +7,7 @@ class MinecraftServer
     @path = File.join(Dir.pwd,path)
   end
   def start(version)
+    raise 'File does not exist.' unless versions.include? version
     if @status[:state] != 'Running'
       Dir.chdir(@path) do
         jar = "jar/#{version}.jar"
@@ -29,6 +30,7 @@ class MinecraftServer
     end
   end
   def restore(file)
+    raise 'File does not exist.' unless backups.include? file
     Dir.chdir(@path) do
       if File.exist?(file)
         system "rm -rf world.old"
@@ -38,6 +40,7 @@ class MinecraftServer
     end
   end
   def delete_backup(file)
+    raise 'File does not exist.' unless backups.include? file
     Dir.chdir(@path) do
       if File.exist?(file)
         system "rm -f '#{file}'"
@@ -45,6 +48,7 @@ class MinecraftServer
     end
   end
   def op(player)
+    raise 'Player does not exist.' unless players.include? player
     Dir.chdir(@path) do
       ops = File.open('ops.txt') do |f| f.read.split end
       unless ops.include? player
@@ -54,6 +58,7 @@ class MinecraftServer
     end
   end
   def deop(player)
+    raise 'Player does not exist.' unless ops.include? player
     Dir.chdir(@path) do
       ops = File.open('ops.txt') do |f| f.read.split end
       if ops.include? player
