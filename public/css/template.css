@@ -6,6 +6,8 @@
 .logo img {
     padding: 0 25px 25px;
 }
-.footer .copyright, .footer .disclaimer {
+.header .user,
+.footer .copyright,
+.footer .disclaimer {
     text-align: center;
 }

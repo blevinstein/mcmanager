@@ -1,4 +1,4 @@
-class MinecraftServer
+class MCServer
   attr_accessor :path
   attr_accessor :id
   attr_accessor :status

@@ -1,33 +1,42 @@
-#!/usr/bin/ruby
-
 require 'sinatra/base'
 require 'sinatra/contrib'
 
+require 'data_mapper'
+
 require 'haml'
 
-require 'server.rb'
+require './config.rb'
+require './mcserver.rb'
 
 class MCManager < Sinatra::Base
 
+  set :environment, $environment
   enable :sessions
   set :haml, :layout => :template
-  set :mcserver, MinecraftServer.new('server')
   register Sinatra::Contrib
 
+  set :mcserver, MCServer.new('mcserver')
+
   def require_auth
-    redirect '/login' unless session[:auth]
+    redirect '/login' unless session[:user]
   end
 
   get '/login' do
-    redirect '/' if session[:auth]
+    redirect '/' if session[:user]
     haml :login
   end
 
   post '/login' do
-    if params[:password]=='insecurepassword'
-      session[:auth] = true
+    user = User.get(params[:username])
+    if user && user.password?(params[:password])
+      session[:user] = user.username
     end
     redirect '/login'
+  end
+
+  get '/logout' do
+    session[:user] = nil
+    redirect '/'
   end
 
   get '/' do

@@ -8,8 +8,13 @@
     .header.row
       .logo.span3
         %img{:src=>'img/minecraft.png'}
-      .title.span9
+      .title.span6
         %h1 Minecraft Server Manager
+      - if session[:user]
+        .user.span3
+          = session[:user]
+          &nbsp;|&nbsp;
+          %a{:href => '/logout'} Logout
     .body
       = yield
     .footer.row
