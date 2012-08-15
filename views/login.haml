@@ -1,4 +1,12 @@
+- content_for :head do
+  = stylesheet 'css/login.css'
+
 %form{:action=>'/login',:method=>'post'}
+  .row.error
+    - if flash then
+      %p.span4.offset4= flash
+    - else
+      %p &nbsp;
   .row
     %label.span2.offset2 Username
     %input.span2{:type=>'text',:name=>'username'}

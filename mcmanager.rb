@@ -23,15 +23,17 @@ class MCManager < Sinatra::Base
 
   get '/login' do
     redirect '/' if session[:user]
-    haml :login
+    haml :login, :locals => {:flash => nil}
   end
 
   post '/login' do
     user = User.get(params[:username])
     if user && user.password?(params[:password])
       session[:user] = user.username
+      haml :index, :locals => {:server => settings.mcserver}
+    else
+      haml :login, :locals => {:flash => 'Incorrect username or password.'}
     end
-    redirect '/login'
   end
 
   get '/logout' do
@@ -51,7 +53,7 @@ class MCManager < Sinatra::Base
     elsif params[:stop]
       settings.mcserver.stop
     end
-    redirect '/'
+    haml :index, :locals => {:server => settings.mcserver}
   end
 
   post '/backup' do
@@ -63,7 +65,7 @@ class MCManager < Sinatra::Base
     elsif params[:delete] and params[:file]
       settings.mcserver.delete_backup params[:file]
     end
-    redirect '/'
+    haml :index, :locals => {:server => settings.mcserver}
   end
 
   post '/op' do
