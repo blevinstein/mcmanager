@@ -1,1 +1,1 @@
-web: bundle exec rackup config.ru -p 8080
+web: bundle exec ruby mcmanager.rb

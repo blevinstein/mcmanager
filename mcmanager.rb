@@ -10,8 +10,10 @@ require './mcserver.rb'
 
 class MCManager < Sinatra::Base
 
+  set :port, ENV['PORT'] || 4567
   set :environment, $environment
   enable :sessions
+
   set :haml, :layout => :template
   register Sinatra::Contrib
 

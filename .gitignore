@@ -1,4 +1,12 @@
 .DS_Store
-mcserver
 db
-Gemfile.lock
+
+mcserver/banned-ips.txt
+mcserver/banned-players.txt
+mcserver/ops.txt
+mcserver/server.log
+mcserver/server.properties
+mcserver/white-list.txt
+mcserver/world
+mcserver/world.old
+mcserver/world_*.zip
