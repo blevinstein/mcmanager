@@ -10,3 +10,5 @@ mcserver/white-list.txt
 mcserver/world
 mcserver/world.old
 mcserver/world_*.zip
+mcserver/jar/*
+mcserver/minecraft_server.jar
