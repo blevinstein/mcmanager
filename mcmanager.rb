@@ -32,7 +32,8 @@ class MCManager < Sinatra::Base
     user = User.get(params[:username])
     if user && user.password?(params[:password])
       session[:user] = user.username
-      haml :index, :locals => {:server => settings.mcserver}
+      redirect '/'
+      #haml :index, :locals => {:server => settings.mcserver}
     else
       haml :login, :locals => {:flash => 'Incorrect username or password.'}
     end

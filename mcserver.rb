@@ -5,6 +5,7 @@ class MCServer
   def initialize(path='server')
     @status = {:state => 'Stopped'}
     @path = File.join(Dir.pwd,path)
+    Dir.mkdir(@path) unless File.directory?(@path)
   end
   def start(version)
     raise 'File does not exist.' unless versions.include? version
@@ -74,17 +75,32 @@ class MCServer
   end
   def players
     Dir.chdir(@path) do
-      `ls world/players/*.dat`.split.map {|f| File.basename(f)[0...-4]}
+      begin
+        `ls world/players/*.dat`.split.map {|f| File.basename(f)[0...-4]}
+      rescue Errno::ENOENT
+        Dir.mkdir('world/players')
+        retry
+      end
     end
   end
   def ops
     Dir.chdir(@path) do
-      File.open('ops.txt') do |f| f.read.split end
+      begin
+        File.open('ops.txt') do |f| f.read.split end
+      rescue Errno::ENOENT
+        File.open('ops.txt','w') { }
+        retry
+      end
     end
   end
   def versions
     Dir.chdir(@path) do
-      `ls jar/*.jar`.split.map {|f| File.basename(f).gsub(/\.jar$/,'')}
+      begin
+        `ls jar/*.jar`.split.map {|f| File.basename(f).gsub(/\.jar$/,'')}.reverse
+      rescue Errno::ENOENT
+        Dir.mkdir('jar')
+        retry
+      end
     end
   end
 end
